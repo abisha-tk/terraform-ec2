@@ -10,16 +10,12 @@ pipeline {
 
    agent  any
     stages {
-        stage('checkout') {
+                stage('Checkout') {
             steps {
-                 script{
-                        dir("terraform")
-                        {
-                            git "https://github.com/abisha-tk/terraform-ec2.git"
-                        }
-                    }
-                }
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/abisha-tk/terraform-ec2.git']]])
             }
+        
+                }
 
         stage('Plan') {
             steps {
